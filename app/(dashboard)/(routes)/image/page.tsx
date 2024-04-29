@@ -25,8 +25,10 @@ import { cn } from "@/lib/utils";
 import { SelectValue } from "@radix-ui/react-select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { userProModel } from "@/hooks/use-pro-model";
 
 export default function ImagePage() {
+  const proModel = userProModel();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,6 +50,9 @@ export default function ImagePage() {
       form.reset();
     } catch (error: any) {
       // Todo open pro model
+      if (error?.response?.status === 403) {
+        proModel.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();

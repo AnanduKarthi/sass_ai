@@ -6,7 +6,7 @@ interface useProModelStore {
   onClose: () => void;
 }
 
-const userProModel = create<useProModelStore>((set) => ({
+export const userProModel = create<useProModelStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),

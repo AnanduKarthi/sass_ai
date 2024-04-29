@@ -20,9 +20,11 @@ import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import BotAvatar from "@/components/bot-avatar";
+import { userProModel } from "@/hooks/use-pro-model";
 
 export default function CodePage() {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const proModel = userProModel();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,6 +47,9 @@ export default function CodePage() {
       form.reset();
     } catch (error: any) {
       // Todo open pro model
+      if (error?.response?.status === 403) {
+        proModel.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();
