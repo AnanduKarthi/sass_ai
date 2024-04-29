@@ -6,6 +6,7 @@ import { MAX_FREE_COUNT } from "@/constants";
 import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
 import { Zap } from "lucide-react";
+import { userProModel } from "@/hooks/use-pro-model";
 
 type freeCountType = {
   apiLimitCount: number;
@@ -14,6 +15,7 @@ type freeCountType = {
 export default function FreeCounter({ apiLimitCount = 0 }: freeCountType) {
   const [mounted, setMounted] = useState(false);
 
+  const proModel = userProModel();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -34,7 +36,11 @@ export default function FreeCounter({ apiLimitCount = 0 }: freeCountType) {
               value={(apiLimitCount / MAX_FREE_COUNT) * 100}
             />
           </div>
-          <Button className=" w-full" variant={"premium"}>
+          <Button
+            onClick={proModel.onOpen}
+            className=" w-full"
+            variant={"premium"}
+          >
             Upgrade
             <Zap className=" w-4 h-4 ml-2 fill-white" />
           </Button>

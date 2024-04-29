@@ -15,9 +15,11 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Empty } from "@/components/empty";
 import Loader from "@/components/loader";
+import { userProModel } from "@/hooks/use-pro-model";
 
 export default function VideoPage() {
   const [video, setVideo] = useState<string>();
+  const proModel = userProModel();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,6 +38,9 @@ export default function VideoPage() {
       form.reset();
     } catch (error: any) {
       // Todo open pro model
+      if (error?.response?.status === 403) {
+        proModel.onOpen();
+      }
       console.log(error);
     } finally {
       router.refresh();
