@@ -24,6 +24,7 @@ import {
 import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import toast from "react-hot-toast";
 
 const tools = [
   {
@@ -69,6 +70,7 @@ export default function ProModel() {
       window.location.href = response.data.url;
     } catch (error) {
       console.log("STRIP_CLINT_ERROR", error);
+      toast.error("Somthing went wrong")
     } finally {
       setLoading(false);
     }
@@ -104,6 +106,7 @@ export default function ProModel() {
         </DialogHeader>
         <DialogFooter>
           <Button
+          disabled={loading}
             onClick={onSubscribe}
             size={"lg"}
             variant={"premium"}

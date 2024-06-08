@@ -8,6 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "./constants";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
+import toast from "react-hot-toast";
+
+
 
 import Heading from "@/components/heading";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -20,6 +23,7 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import BotAvatar from "@/components/bot-avatar";
 import { userProModel } from "@/hooks/use-pro-model";
+
 
 export default function ConversationPage() {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -34,6 +38,7 @@ export default function ConversationPage() {
   const isLoading = form.formState.isSubmitting;
   const isSubmitting = async (value: z.infer<typeof formSchema>) => {
     try {
+     
       const userMessage: ChatCompletionRequestMessage = {
         role: "user",
         content: value.prompt,
@@ -48,6 +53,8 @@ export default function ConversationPage() {
       // Todo open pro model
       if (error?.response?.status === 403) {
         proModel.onOpen();
+      }else{
+        toast.error("Somthing went wrong")
       }
       console.log(error);
     } finally {

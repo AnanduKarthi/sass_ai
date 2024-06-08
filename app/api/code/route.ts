@@ -1,4 +1,5 @@
 import { checkApiLImit, increaseApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
@@ -28,8 +29,9 @@ export async function POST(req: Request) {
       return new NextResponse("message required", { status: 400 });
     }
     const freeTrail = await checkApiLImit();
+    const isPro=await checkSubscription()
 
-    if (!freeTrail) {
+    if (!freeTrail &&!isPro) {
       return new NextResponse("free trail expired", { status: 403 });
     }
 
@@ -38,7 +40,9 @@ export async function POST(req: Request) {
       messages: [instractionMessage, ...messages],
     });
 
-    await increaseApiLimit();
+    if(!isPro){
+      await increaseApiLimit();
+      }
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
     console.log("[code_error]", error);
