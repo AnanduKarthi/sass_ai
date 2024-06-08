@@ -26,6 +26,7 @@ import { SelectValue } from "@radix-ui/react-select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { userProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function ImagePage() {
   const proModel = userProModel();
@@ -52,6 +53,8 @@ export default function ImagePage() {
       // Todo open pro model
       if (error?.response?.status === 403) {
         proModel.onOpen();
+      }else{
+        toast.error("Somthing went wrong")
       }
       console.log(error);
     } finally {

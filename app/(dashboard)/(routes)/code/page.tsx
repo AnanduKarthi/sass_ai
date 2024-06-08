@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import BotAvatar from "@/components/bot-avatar";
 import { userProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function CodePage() {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
@@ -49,6 +50,8 @@ export default function CodePage() {
       // Todo open pro model
       if (error?.response?.status === 403) {
         proModel.onOpen();
+      }else{
+        toast.error("Somthing went wrong")
       }
       console.log(error);
     } finally {

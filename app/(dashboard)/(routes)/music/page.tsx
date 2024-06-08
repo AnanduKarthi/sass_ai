@@ -17,6 +17,7 @@ import { useState } from "react";
 import { Empty } from "@/components/empty";
 import Loader from "@/components/loader";
 import { userProModel } from "@/hooks/use-pro-model";
+import toast from "react-hot-toast";
 
 export default function MusicPage() {
   const [music, setMusic] = useState<string>();
@@ -41,6 +42,8 @@ export default function MusicPage() {
       // Todo open pro model
       if (error?.response?.status === 403) {
         proModel.onOpen();
+      }else{
+        toast.error("Somthing went wrong")
       }
       console.log(error);
     } finally {

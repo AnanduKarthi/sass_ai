@@ -10,9 +10,10 @@ import { userProModel } from "@/hooks/use-pro-model";
 
 type freeCountType = {
   apiLimitCount: number;
+  isPro:boolean
 };
 
-export default function FreeCounter({ apiLimitCount = 0 }: freeCountType) {
+export default function FreeCounter({ apiLimitCount = 0,isPro=false }: freeCountType) {
   const [mounted, setMounted] = useState(false);
 
   const proModel = userProModel();
@@ -22,6 +23,9 @@ export default function FreeCounter({ apiLimitCount = 0 }: freeCountType) {
 
   if (!mounted) {
     return null;
+  }
+  if(isPro){
+    return null
   }
   return (
     <div className=" p-3">
