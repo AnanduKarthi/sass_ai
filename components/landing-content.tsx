@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 
 const testmonials=[
     {
-        name:"Anandu",
+        name:"Ashika",
         avatar:"A",
-        titile:"Software Developer",
-        description:"this is the best app i ever used"
+        titile:"Bank Manger",
+        description:"very useful app love using it"
     },
     {
         name:"Anandu",
@@ -16,17 +16,17 @@ const testmonials=[
         description:"this is the best app i ever used"
     },
     {
-        name:"Anandu",
+        name:"josh",
         avatar:"A",
-        titile:"Software Developer",
-        description:"this is the best app i ever used"
+        titile:"artist",
+        description:"grate app used every day for proactivity"
     },
     {
-        name:"Anandu",
+        name:"stalin",
         avatar:"A",
-        titile:"Software Developer",
-        description:"this is the best app i ever used"
-    },
+        titile:"social worker",
+        description:"fun to use enjoy using it"
+    }
 
 ]
 
